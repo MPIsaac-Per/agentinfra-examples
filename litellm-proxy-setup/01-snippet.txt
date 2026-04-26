@@ -1,0 +1,5 @@
+litellm-proxy/
+  docker-compose.yml
+  config.yaml
+  .env
+  .gitignore

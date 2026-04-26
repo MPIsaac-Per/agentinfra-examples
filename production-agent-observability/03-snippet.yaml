@@ -1,0 +1,19 @@
+processors:
+  attributes/redact:
+    actions:
+      - key: gen_ai.prompt
+        action: hash
+      - key: gen_ai.completion
+        action: hash
+  tail_sampling:
+    decision_wait: 10s
+    policies:
+      - name: errors
+        type: status_code
+        status_code: { status_codes: [ERROR] }
+      - name: tail_latency
+        type: latency
+        latency: { threshold_ms: 5000 }
+      - name: head_sample_success
+        type: probabilistic
+        probabilistic: { sampling_percentage: 5 }

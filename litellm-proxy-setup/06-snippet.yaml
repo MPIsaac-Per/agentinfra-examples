@@ -1,0 +1,3 @@
+environment:
+  LITELLM_MODE: "PRODUCTION"
+  LITELLM_LOG: "ERROR"
