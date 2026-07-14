@@ -4,6 +4,8 @@ This project follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) an
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-07-14
+
 ### Added
 
 - Automated Python, YAML, shell, Compose, dependency, CodeQL, dependency review, and OpenSSF Scorecard checks.
