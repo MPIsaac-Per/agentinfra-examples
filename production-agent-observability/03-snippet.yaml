@@ -5,6 +5,10 @@ processors:
         action: hash
       - key: gen_ai.completion
         action: hash
+      - key: gen_ai.input.messages
+        action: hash
+      - key: gen_ai.output.messages
+        action: hash
   tail_sampling:
     decision_wait: 10s
     policies:

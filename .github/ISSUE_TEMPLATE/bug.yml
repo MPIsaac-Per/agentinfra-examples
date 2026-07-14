@@ -1,0 +1,44 @@
+name: Example bug
+description: Report reproducible incorrect behavior in an infrastructure example.
+title: "bug: "
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: Remove credentials, generated virtual keys, provider payloads, and customer data before posting.
+  - type: input
+    id: example
+    attributes:
+      label: Example and file
+      placeholder: production-agent-observability/02-snippet.py
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Sanitized reproduction
+      description: Include the smallest configuration, command, and input needed to reproduce the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Dependency and platform versions
+      placeholder: Langfuse 4.14, Python 3.13, macOS 15
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submission checks
+      options:
+        - label: I removed secrets and private data.
+          required: true
+        - label: I checked the current upstream documentation and existing issues.
+          required: true

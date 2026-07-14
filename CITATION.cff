@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: If you use these examples in published work, cite this repository.
+title: Agent Infrastructure Examples
+type: software
+authors:
+  - family-names: Isaac
+    given-names: Michael
+repository-code: https://github.com/MPIsaac-Per/agentinfra-examples
+url: https://mpiv.ai/#code
+license: MIT
+version: 0.1.0

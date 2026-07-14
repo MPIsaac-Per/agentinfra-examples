@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+umask 077
 DUMP_FILE="litellm-$(date -u +%Y%m%dT%H%M%SZ).dump"
 docker compose exec -T db pg_dump -U litellm -Fc litellm > "$DUMP_FILE"
 test -s "$DUMP_FILE" || { echo "dump is empty: $DUMP_FILE" >&2; exit 1; }

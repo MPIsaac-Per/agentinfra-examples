@@ -1,0 +1,26 @@
+name: Example proposal
+description: Propose a bounded infrastructure example or an update to an existing one.
+title: "proposal: "
+labels: [enhancement, triage]
+body:
+  - type: textarea
+    id: operator_problem
+    attributes:
+      label: Operator problem
+      description: Describe the production or evaluation problem the example should address.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed example
+      description: Include dependencies, external services, local validation, and failure behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: upstream
+    attributes:
+      label: Upstream contracts
+      description: Link the current official documentation for every external API used.
+    validations:
+      required: true

@@ -1,6 +1,6 @@
 services:
   litellm:
-    image: ghcr.io/berriai/litellm-database:v1.55.10
+    image: ghcr.io/berriai/litellm-database:v1.90.2@sha256:1f92487b838dd0b483009fc1f4033a1f02156e94794a6363a21cb8a3eed6ce22
     restart: unless-stopped
     ports:
       - "127.0.0.1:4000:4000"
@@ -16,13 +16,19 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/health/liveliness"]
+      test: ["CMD", "curl", "--fail", "--silent", "http://localhost:4000/health/readiness"]
       interval: 30s
       timeout: 5s
-      retries: 3
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
 
   db:
-    image: postgres:16
+    image: postgres:16.10@sha256:21f6013073bc6b92830a2129570e2f5ec42a6c734b5a985a41e83aa58f54c3c1
     restart: unless-stopped
     environment:
       POSTGRES_USER: litellm
@@ -35,6 +41,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
 
 volumes:
   pgdata:
