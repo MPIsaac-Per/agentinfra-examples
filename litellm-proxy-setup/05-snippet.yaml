@@ -1,18 +1,18 @@
 model_list:
   - model_name: claude-sonnet
     litellm_params:
-      model: anthropic/claude-sonnet-4-5-20250929
+      model: os.environ/ANTHROPIC_MODEL_ID
       api_key: os.environ/ANTHROPIC_API_KEY
       # rpm/tpm: derive from your provider account, see below
 
   - model_name: claude-sonnet-fallback
     litellm_params:
-      model: openrouter/anthropic/claude-sonnet-4.5
+      model: os.environ/OPENROUTER_MODEL_ID
       api_key: os.environ/OPENROUTER_API_KEY
 
   - model_name: gpt-4o
     litellm_params:
-      model: openai/gpt-4o
+      model: os.environ/OPENAI_MODEL_ID
       api_key: os.environ/OPENAI_API_KEY
 
 router_settings:
@@ -26,7 +26,8 @@ litellm_settings:
   drop_params: false
   set_verbose: false
   json_logs: true
-  disable_error_logs: true
+  disable_error_logs: false
+  turn_off_message_logging: true
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

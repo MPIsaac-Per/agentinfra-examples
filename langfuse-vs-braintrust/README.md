@@ -1,10 +1,5 @@
-# langfuse-vs-braintrust
+# Langfuse vs Braintrust
 
 Companion code for [langfuse vs braintrust](https://mpiv.ai/blog/langfuse-vs-braintrust-which-wins-for-agent-observability-2026).
 
-Code blocks below are extracted verbatim from the article. Each numbered
-file corresponds to one fenced code block in the published version.
-Operator: rename / refactor / merge into runnable projects as needed.
-
-## Files
-
+This directory currently indexes the article. It contains no implementation samples. Langfuse code lives in [`../production-agent-observability/`](../production-agent-observability/) and [`../agent-eval-pipelines/`](../agent-eval-pipelines/).

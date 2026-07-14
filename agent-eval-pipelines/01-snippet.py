@@ -1,29 +1,66 @@
-# Illustrative shape only. The companion repo's tests/test_langfuse_experiment.py
-# carries the pinned langfuse and provider-SDK versions and the exact model ID
-# used at the time of that commit. Verify against
-# https://langfuse.com/docs/evaluation/dataset-runs/run-via-sdk before deploying.
-from langfuse import Langfuse
-from anthropic import Anthropic  # or the provider SDK of choice
+"""Run a Langfuse dataset experiment with an Anthropic candidate model.
 
-langfuse = Langfuse()
-client = Anthropic()
+Required environment variables are read by the provider SDKs when
+``run_experiment`` is called. Importing this module has no network side effects.
+"""
 
-CANDIDATE_MODEL = "<provider-model-id-from-current-docs>"
+from __future__ import annotations
 
-def my_agent(*, item, **kwargs):
-    response = client.messages.create(
-        model=CANDIDATE_MODEL,
-        max_tokens=1024,
-        messages=[{"role": "user", "content": item.input["question"]}],
+from typing import Any
+
+from anthropic import Anthropic
+from langfuse import Evaluation, Langfuse
+
+
+def exact_match(
+    *,
+    input: Any,
+    output: Any,
+    expected_output: Any,
+    metadata: dict[str, Any] | None,
+    **_: dict[str, Any],
+) -> Evaluation:
+    del input, metadata
+    if expected_output is None:
+        return Evaluation(
+            name="exact_match",
+            value=0,
+            comment="expected output is missing",
+        )
+    if not isinstance(output, str) or not isinstance(expected_output, str):
+        return Evaluation(
+            name="exact_match",
+            value=0,
+            comment="exact_match requires string output and expected_output",
+        )
+    return Evaluation(
+        name="exact_match",
+        value=int(output.strip() == expected_output.strip()),
     )
-    return response.content[0].text
 
-def exact_match(*, output, expected_output, **kwargs):
-    return {"name": "exact_match", "value": 1 if output.strip() == expected_output.strip() else 0}
 
-dataset = langfuse.get_dataset(name="agent-regression-suite-v3")
-dataset.run_experiment(
-    name=f"baseline-{CANDIDATE_MODEL}-2026-04-26",
-    task=my_agent,
-    evaluators=[exact_match],
-)
+def run_experiment(*, model: str, dataset_name: str, run_name: str) -> Any:
+    if not model.strip():
+        raise ValueError("model must be a non-empty provider model ID")
+
+    langfuse = Langfuse()
+    anthropic = Anthropic()
+
+    def run_agent(*, item: Any, **_: Any) -> str:
+        question = item.input.get("question") if isinstance(item.input, dict) else None
+        if not isinstance(question, str) or not question.strip():
+            raise ValueError("dataset item input.question must be a non-empty string")
+        response = anthropic.messages.create(
+            model=model,
+            max_tokens=1024,
+            messages=[{"role": "user", "content": question}],
+        )
+        text_blocks = [block.text for block in response.content if block.type == "text"]
+        return "".join(text_blocks)
+
+    dataset = langfuse.get_dataset(name=dataset_name)
+    return dataset.run_experiment(
+        name=run_name,
+        task=run_agent,
+        evaluators=[exact_match],
+    )
