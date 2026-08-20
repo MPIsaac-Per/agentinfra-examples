@@ -51,6 +51,7 @@ This repository is one part of Michael Isaac's public agent engineering collecti
 
 - [claude-code-ops-audit](https://github.com/MPIsaac-Per/claude-code-ops-audit), audit methods and DuckDB analysis
 - [claude-code-loop-patterns](https://github.com/MPIsaac-Per/claude-code-loop-patterns), tested controls for agent loops
+- [linear-agent-bridge](https://github.com/MPIsaac-Per/linear-agent-bridge), Linear agent session bridge
 - [mpiv.ai open-source research](https://mpiv.ai/#code), the collection index
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution scope and [SECURITY.md](SECURITY.md) for private vulnerability reporting.
