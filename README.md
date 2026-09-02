@@ -11,7 +11,7 @@ Validated companion code for articles on [mpiv.ai/blog](https://mpiv.ai/blog) co
 
 Each subdirectory corresponds to one published article. Examples that call hosted services require your own credentials and current provider model IDs. Import, schema, shell, and local utility behavior is tested without making external calls.
 
-Validated against Langfuse 4.14, OpenTelemetry 1.43, Anthropic 0.116, OpenAI 2.45, and LiteLLM proxy image v1.90.2 on 2026-07-14. The lockfile and Dependabot preserve that version trail.
+Validated against Langfuse 4.14, OpenTelemetry 1.43, Anthropic 0.116, OpenAI 2.45, and LiteLLM proxy image v1.90.2 on 2026-07-14. The lockfile preserves that version trail.
 
 ## Example status
 
